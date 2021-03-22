@@ -7,5 +7,18 @@ module.exports = {
       '@': resolve('src'),
       'components': resolve('src/components'),
     }
-  }
+  },
+  //antd按需引入
+  babel: {
+    plugins: [
+        [
+          "import", 
+          {
+            "libraryName": "antd",
+            "libraryDirectory": "es",
+            "style": true //设置为true即是less
+          }
+      ]
+    ]
+  },
 }
