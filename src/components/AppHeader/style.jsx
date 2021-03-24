@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import imgHot from "../../assets/img/sprite_01.png";
+
 export const HeaderWrapper = styled.div`
   /* 记得删除  */
   width: 1425px;
@@ -17,6 +18,7 @@ export const HeaderWrapper = styled.div`
 `;
 export const HeaderLeft = styled.div`
   display: flex;
+  align-items:center;
   .logo {
     /* 路径有问题 还没找到原因 目前是把路径放在reset.css中了 */
     /* 3.22更新：找到解决方法了 通过import引入 */
@@ -57,24 +59,12 @@ export const HeaderLeft = styled.div`
       }
     }
     /* 多个伪类会混起来 解决：用sup标签 */
-    /* :last-child {
-      :after {
-        position: absolute;
-        content:"";
-        width: 28px;
-        height: 14px;
-        background-image: url(${imgHot});
-        background-position: -192px 0;
-        top: 20px;
-        right: -20px;
-      }
-    } */
   }
   .hot {
     position: absolute;
     background: url(${imgHot}) no-repeat;
     top: 21px;
-    left: 100px;
+    left: 104px;
     width: 28px;
     height: 19px;
     background-position: -192px 0;
@@ -94,16 +84,32 @@ export const HeaderRight = styled.div`
     input {
       ::placeholder {
         font-size:12px;
+        color:#9b9b9b;
       }
     }
   }
   .center {
+    font-size: 12px;
     width: 90px;
     height: 32px;
-    line-height:32px;
-    text-align:center;
-    border:1px solid #666;
-    border-radius:16px;
-    margin:0 16px;
+    line-height: 32px;
+    text-align: center;
+    border: 1px solid #4F4F4F;
+    border-radius: 20px;
+    margin: 0 13px 0 12px;
+    color: #ccc;
+    &:hover {
+      border-color: #fff;
+    }
+  }
+
+  .login {
+    font-size: 12px;
+    margin: 0 4px 0 5px;
+    padding: 0 23px 0 0;
+    &:hover {
+      color:#ccc;
+      text-decoration:underline;
+    }
   }
 `;

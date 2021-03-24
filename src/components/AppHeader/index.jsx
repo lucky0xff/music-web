@@ -12,16 +12,16 @@ export default memo(function HYAppHeader() {
   const showSelectItme = (item, index) => {
     if (index < 3) {
       return (
-        <NavLink to={item.link}>{item.name}</NavLink>
+        <NavLink to={item.link}>{item.title}</NavLink>
       )
     } else {
       if (index === 5) {
         return (
-          <a href={item.link}>{item.name}<sup className='hot'>下载客户端</sup></a>
+          <a href={item.link}>{item.title}<sup className='hot'>下载客户端</sup></a>
         )
       } else {
         return (
-          <a href={item.link}>{item.name}</a>
+          <a href={item.link}>{item.title}</a>
         )
       }/*  */
     }
@@ -35,7 +35,7 @@ export default memo(function HYAppHeader() {
             {
               headerLinks.map((item, index) => {
                 return (
-                  <div key={item.name} className='select-list'>
+                  <div key={item.title} className='select-list'>
                     {showSelectItme(item, index)}
                   </div>
                 )
@@ -43,9 +43,9 @@ export default memo(function HYAppHeader() {
             }
           </HeaderLeft>
           <HeaderRight>
-          <Input className='search' placeholder="音乐/视频/电台/用户" prefix={<SearchOutlined />}/>
-          <div className='center'>创作者中心</div>
-          <button>登陆</button>
+          <Input className='search' placeholder="音乐/视频/电台/用户" prefix={<SearchOutlined style={{color:'#6D6D6D',border:'7px' }}/>}/>
+          <a className='center' href='/'>创作者中心</a>
+          <a className='login'>登录 </a>
           </HeaderRight>
         </div>
         <div className="divider"></div>
