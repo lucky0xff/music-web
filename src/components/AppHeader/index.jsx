@@ -27,9 +27,6 @@ export default memo(function HYAppHeader() {
     }
   }
 
-  const showCurrent = ()=>{
-    
-  }
   return (
     <div>
       <HeaderWrapper>
@@ -39,7 +36,7 @@ export default memo(function HYAppHeader() {
             {
               headerLinks.map((item, index) => {
                 return (
-                  <div key={item.title} className='select-list' onClick={showCurrent}>
+                  <div key={item.title} className='select-list'>
                     {showSelectItme(item, index)}
                   </div>
                 )

@@ -78,7 +78,7 @@ export const discoverMenu = [
   },
   {
     title:"排行榜",
-    link:"/discover/tolist"
+    link:"/discover/toplist"
   },
   {
     title:"歌单",

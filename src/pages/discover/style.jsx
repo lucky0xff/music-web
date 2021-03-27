@@ -1,17 +1,19 @@
 import styled from 'styled-components'
 import Ricon from '@/assets/img/white-r-icon@3x.png'
 export const DiscoverWrapper = styled.div`
-  height: 30px;
-  background-color:#C20C0C;
+  width:100%;
+  .top{
+    height: 30px;
+    background-color:#C20C0C;
+  }
 `
 export const TopMenu = styled.div`
   ul {
-    float: left;
     padding-left: 180px;
+    display:flex;
+    justify-content:flex-start;
     .item {
-      float: left;
       height: 34px;
-      text-align: center;
       a {
         position:relative;
         display: inline-block;

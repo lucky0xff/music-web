@@ -33,11 +33,11 @@ export const HeaderLeft = styled.div`
     position: relative;
     line-height: 69px;
     justify-content: center;
-    padding: 0 19px;
     a {
       color: #ccc;
       /* 让a标签周围也能点击 */
       display:block;
+      padding: 0 19px;
     }
     :hover {
       background-color: #000;
@@ -47,6 +47,7 @@ export const HeaderLeft = styled.div`
     }
   }
   .current {
+    background-color: #000;
     :after {
       border-left: 6px solid transparent;
       border-right: 6px solid transparent;
