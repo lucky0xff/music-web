@@ -2,7 +2,7 @@ export const headerLinks = [
   /* 路由 */
   {
     title: "发现音乐",
-    link: "/"
+    link: "/discover"
   },
   {
     title: "我的音乐",
@@ -10,7 +10,7 @@ export const headerLinks = [
   },
   {
     title: "朋友",
-    link: "/frient"
+    link: "/friend"
   },
   /* a标签 */
   {
@@ -70,3 +70,30 @@ export const footerImages = [{
     link: "https://music.163.com/uservideo#/plan",
   },
 ];
+
+export const discoverMenu = [
+  {
+    title:"推荐",
+    link:"/discover/recommend"
+  },
+  {
+    title:"排行榜",
+    link:"/discover/tolist"
+  },
+  {
+    title:"歌单",
+    link:"/discover/playlist"
+  },
+  {
+    title:"主播电台",
+    link:"/discover/djradio"
+  },
+  {
+    title:"歌手",
+    link:"/discover/artist"
+  },
+  {
+    title:"新碟上市",
+    link:"/discover/album"
+  },
+]

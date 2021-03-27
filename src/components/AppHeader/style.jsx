@@ -3,7 +3,7 @@ import imgHot from "../../assets/img/sprite_01.png";
 
 export const HeaderWrapper = styled.div`
   /* 记得删除  */
-  width: 1425px;
+  /* width: 1425px; */
   background-color: #242424;
   height: 75px;
   .content {
@@ -24,12 +24,10 @@ export const HeaderLeft = styled.div`
     /* 3.22更新：找到解决方法了 通过import引入 */
     /* a标签宽高必须设置 display: block;才有效 */
     display: block;
-    width: 159px;
+    width: 176px;
     height: 70px;
     background-position: 0 0;
     text-indent: -9999px;
-    padding-right: 15px;
-    margin-right: 15px;
   }
   .select-list {
     position: relative;
@@ -38,33 +36,36 @@ export const HeaderLeft = styled.div`
     padding: 0 19px;
     a {
       color: #ccc;
+      /* 让a标签周围也能点击 */
+      display:block;
     }
     :hover {
       background-color: #000;
       a {
         color: #fff;
       }
-      /* after伪类必须设置content */
-      :after {
-        border-left: 6px solid transparent;
-        border-right: 6px solid transparent;
-        border-bottom: 6px solid #c20c0c;
-        content: "";
-        position: absolute;
-        width: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        margin: auto;
-      }
     }
-    /* 多个伪类会混起来 解决：用sup标签 */
   }
+  .current {
+    :after {
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-bottom: 6px solid #c20c0c;
+      content: "";
+      position: absolute;
+      width: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+    }
+  }
+    /* 多个伪类会混起来 解决：用sup标签 */
   .hot {
     position: absolute;
     background: url(${imgHot}) no-repeat;
-    top: 21px;
-    left: 104px;
+    top: 20px;
+    left: 102px;
     width: 28px;
     height: 19px;
     background-position: -192px 0;
@@ -77,6 +78,7 @@ export const HeaderRight = styled.div`
   align-items:center;
   color:#ccc;
   font-size:12px;
+  margin-right: 3px;
   .search {
     width: 158px;
     height: 32px;

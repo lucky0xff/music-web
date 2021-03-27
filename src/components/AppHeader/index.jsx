@@ -1,5 +1,5 @@
 import React, { memo } from 'react'
-import {NavLink,Route} from 'react-router-dom'
+import {NavLink} from 'react-router-dom'
 
 import {Input} from 'antd'
 import {SearchOutlined} from '@ant-design/icons'
@@ -12,19 +12,23 @@ export default memo(function HYAppHeader() {
   const showSelectItme = (item, index) => {
     if (index < 3) {
       return (
-        <NavLink to={item.link}>{item.title}</NavLink>
+        <NavLink activeClassName="current" to={item.link}>{item.title}</NavLink>
       )
     } else {
       if (index === 5) {
         return (
-          <a href={item.link}>{item.title}<sup className='hot'>下载客户端</sup></a>
+          <a href={item.link}>{item.title}<sup className='hot' target ="_blank">下载客户端</sup></a>
         )
       } else {
         return (
-          <a href={item.link}>{item.title}</a>
+          <a href={item.link} target ="_blank" rel="noreferrer">{item.title} </a>
         )
-      }/*  */
+      }
     }
+  }
+
+  const showCurrent = ()=>{
+    
   }
   return (
     <div>
@@ -35,7 +39,7 @@ export default memo(function HYAppHeader() {
             {
               headerLinks.map((item, index) => {
                 return (
-                  <div key={item.title} className='select-list'>
+                  <div key={item.title} className='select-list' onClick={showCurrent}>
                     {showSelectItme(item, index)}
                   </div>
                 )
