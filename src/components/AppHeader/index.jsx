@@ -46,7 +46,7 @@ export default memo(function HYAppHeader() {
           <HeaderRight>
           <Input className='search' placeholder="音乐/视频/电台/用户" prefix={<SearchOutlined style={{color:'#6D6D6D',border:'7px' }}/>}/>
           <a className='center' href='/'>创作者中心</a>
-          <a className='login'>登录 </a>
+          <a className='login' href='/'>登录 </a>
           </HeaderRight>
         </div>
         <div className="divider"></div>
