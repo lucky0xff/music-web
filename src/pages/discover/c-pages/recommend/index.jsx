@@ -8,9 +8,10 @@ import {getTopBannerAction} from './store/actionCreators'
 function HYRecommend(props) {
   // 组件与redux关联 
   const recommend = useSelector(state=>({
-    topBanners:state.recommend.topBanners
+    // topBanners:state.get("recommend").get("topBanners")
+    topBanners:state.getIn(["recommend","topBanners"])
   }),shallowEqual)
-  
+
   const dispatch = useDispatch()
 
   // 发送网络请求
