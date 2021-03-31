@@ -8,7 +8,7 @@ const ChangeTopBannerAction = (response)=>({
 
 export const getTopBannerAction= () => {
   return dispatch =>{
-    getTopBanners().theb(response=>{
+    getTopBanners().then(response=>{
       dispatch(ChangeTopBannerAction(response))
     })
   }
