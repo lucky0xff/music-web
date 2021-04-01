@@ -20,7 +20,7 @@ export default memo(function HYAppFooter() {
   }
   return (
     <FooterWrapper>
-      <div className='footer-content warp-v2'>
+      <div className='footer-content wrap-v2'>
         <FooterLeft>
           <p className="copy">{footerLinks.map( item => showCopys(item))}</p>
           <p>
