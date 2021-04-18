@@ -1,14 +1,30 @@
 import React, { memo } from 'react'
+import { RecommendWrapper,Content,RecommendLeft,RecommendRight } from './style'
 
 import HYTopBanner from './c-cpns/top-banner/index'
+import HYHotRecommend from './c-cpns/hot-recommend'
+import HYNewAlbum from './c-cpns/new-album'
+import HYRecommendRanking from './c-cpns/recommend-raking'
 
 // UI组件
 // UI组件与容器组件间通过props传递
 function HYRecommend(props) {
   return (
-    <div>
+    <RecommendWrapper>
       <HYTopBanner/>
-    </div>
+      <Content className='wrap-v2'>
+        <RecommendLeft>
+        
+          <HYHotRecommend />
+          <HYNewAlbum/>
+          <HYRecommendRanking/>
+
+        </RecommendLeft>
+        <RecommendRight>
+
+        </RecommendRight>
+      </Content>
+    </RecommendWrapper>
   )
 }
 

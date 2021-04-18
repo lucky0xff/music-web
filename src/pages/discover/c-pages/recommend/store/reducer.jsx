@@ -1,15 +1,21 @@
 // reducer本身是一个函数 接收两个参数：之前的状态(preState) 动作对象(action) 返回新的状态
+import { Map } from 'immutable'
 import * as actionTypes from './constants'
-import {Map} from 'immutable'
 
 const defaultState = Map({
-  topBanners:[]
+  topBanners:[],
+  hotRecommends:[],
+  newAlbums:[],
 })
 
 function reducer(preState = defaultState,action) {
   switch(action.type) {
     case actionTypes.CHANGE_TOP_BANNERS:
       return preState.set("topBanners",action.topBanners)
+    case actionTypes.CHANGE_HOT_RECOMMENDS:
+      return preState.set("hotRecommends",action.hotRecommends)
+    case actionTypes.CHANGE_NEW_ALBUMS:
+      return preState.set("newAlbums",action.newAlbums)
     default: //初始化
       return preState
   }

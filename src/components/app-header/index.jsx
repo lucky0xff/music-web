@@ -4,7 +4,7 @@ import {NavLink} from 'react-router-dom'
 import {Input} from 'antd'
 import {SearchOutlined} from '@ant-design/icons'
 
-import {HeaderWrapper,HeaderLeft,HeaderRight} from '@/components/AppHeader/style'
+import {HeaderWrapper,HeaderLeft,HeaderRight} from './style'
 import {headerLinks} from '@/common/local-data'
 
 export default memo(function HYAppHeader() {
