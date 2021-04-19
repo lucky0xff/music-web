@@ -6,6 +6,10 @@ const defaultState = Map({
   topBanners:[],
   hotRecommends:[],
   newAlbums:[],
+
+  topRankings:[],
+  newRankings:[],
+  orignRankings:[],
 })
 
 function reducer(preState = defaultState,action) {
@@ -16,6 +20,12 @@ function reducer(preState = defaultState,action) {
       return preState.set("hotRecommends",action.hotRecommends)
     case actionTypes.CHANGE_NEW_ALBUMS:
       return preState.set("newAlbums",action.newAlbums)
+    case actionTypes.CHANGE_TOP_RANKINGS:
+      return preState.set("topRankings",action.topRankings)
+    case actionTypes.CHANGE_NEW_RANKINGS:
+      return preState.set("newRankings",action.newRankings)
+    case actionTypes.CHANGE_ORIGN_RANKINGS:
+      return preState.set("orignRankings",action.orignRankings)
     default: //初始化
       return preState
   }

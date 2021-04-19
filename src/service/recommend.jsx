@@ -23,3 +23,12 @@ export function getNewAlbums(limit) {
     }
   })
 }
+
+export function getRankingList(id) {
+  return request({
+    url:"/playlist/detail",
+    params:{
+      id
+    }
+  })
+}
