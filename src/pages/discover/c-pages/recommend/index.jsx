@@ -5,7 +5,9 @@ import HYTopBanner from './c-cpns/top-banner/index'
 import HYHotRecommend from './c-cpns/hot-recommend'
 import HYNewAlbum from './c-cpns/new-album'
 import HYRecommendRanking from './c-cpns/recommend-raking'
-
+import HYUserLogin from './c-cpns/user-login'
+import HYSettleSinger from './c-cpns/settel-singer'
+import HYHotRadio from './c-cpns/hot-redio'
 // UI组件
 // UI组件与容器组件间通过props传递
 function HYRecommend(props) {
@@ -13,15 +15,16 @@ function HYRecommend(props) {
     <RecommendWrapper>
       <HYTopBanner/>
       <Content className='wrap-v2'>
-        <RecommendLeft>
-        
+        <RecommendLeft>   
           <HYHotRecommend />
           <HYNewAlbum/>
           <HYRecommendRanking/>
-
         </RecommendLeft>
+        
         <RecommendRight>
-
+          <HYUserLogin />
+          <HYSettleSinger />
+          <HYHotRadio />
         </RecommendRight>
       </Content>
     </RecommendWrapper>
