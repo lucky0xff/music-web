@@ -25,11 +25,15 @@ export const SettleSingerWrapper = styled.div`
     .wrapper {
       overflow: hidden;
       .singer {
+        cursor: pointer;
         margin-top: 14px;
         width: 210px;
         height: 62px;
         background: #fafafa;
         display: flex;
+        :hover {
+          background: #e9e9e9;
+        }
         img {
           width: 62px;
           height: 62px;

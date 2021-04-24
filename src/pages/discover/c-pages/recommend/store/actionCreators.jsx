@@ -1,4 +1,4 @@
-import { getHotRecommends, getTopBanners,getNewAlbums,getRankingList } from '@/service/recommend'
+import { getHotRecommends, getTopBanners,getNewAlbums,getRankingList, getSettleSingers } from '@/service/recommend'
 import * as actionTypes from './constants'
 
 const changeTopBannerAction = (response) => ({
@@ -31,6 +31,10 @@ const changeOrignRankingAction = (response) => ({
   orignRankings: response.playlist
 })
 
+const changeSettelSingersAction = (response) => ({
+  type: actionTypes.CHANGE_SETTLE_SINGERS,
+  settleSingers: response.artists
+})
 // 其实就是异步action 所谓的异步action 指action返回的是函数
 export const getTopBannerAction = () =>{
   return dispatch => {
@@ -76,5 +80,13 @@ export const getRankingListsAction = (id) => {
           break;
       }
     }))
+  }
+}
+
+export const getSettleSingersAction = (limit, cat)=> {
+  return dispatch => {
+    getSettleSingers(limit, cat).then(response=>{
+      dispatch(changeSettelSingersAction(response))
+    })
   }
 }

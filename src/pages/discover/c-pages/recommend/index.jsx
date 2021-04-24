@@ -7,7 +7,7 @@ import HYNewAlbum from './c-cpns/new-album'
 import HYRecommendRanking from './c-cpns/recommend-raking'
 import HYUserLogin from './c-cpns/user-login'
 import HYSettleSinger from './c-cpns/settel-singer'
-import HYHotRadio from './c-cpns/hot-redio'
+import HYHotRadio from './c-cpns/hot-radio'
 // UI组件
 // UI组件与容器组件间通过props传递
 function HYRecommend(props) {

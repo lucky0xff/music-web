@@ -32,3 +32,14 @@ export function getRankingList(id) {
     }
   })
 }
+
+// 接口没找到
+export function getSettleSingers(limit,cat) {
+  return request({
+    url:"/artist/list",
+    params: {
+      limit,
+      cat
+    }
+  })
+}
