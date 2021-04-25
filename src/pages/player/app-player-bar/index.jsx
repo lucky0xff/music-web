@@ -1,10 +1,30 @@
-import React from 'react'
-
+import React,{ useEffect } from 'react'
 import { Slider } from 'antd';
-
 import { PlayerBarWrapper,Control, PlayInfo,Operator} from './style'
+import { getSongsDetailAction } from '../store/actionCreators'
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
+import { getSizeImage,formatDate } from '@/utils/format-utils'
 
 export default function HYAppPlayBar() {
+  // state
+
+  // redux hooks
+  const dispatch = useDispatch()
+  const { currentSong } = useSelector(state => ({
+    currentSong: state.getIn(["player","currentSong"])
+  }),shallowEqual)
+
+  // other hooks
+  useEffect(() => {
+    dispatch(getSongsDetailAction(347230))
+  }, [dispatch])
+
+  // other handle
+  const { picUrl,name } = (currentSong && currentSong.al) || ""
+  const singer = (currentSong.ar && currentSong.ar[0].name) || ""
+  const duration = (currentSong && currentSong.dt) || ""
+  
+  // render
   return (
     <PlayerBarWrapper>
       <div className="content">
@@ -16,19 +36,20 @@ export default function HYAppPlayBar() {
 
         <PlayInfo>
           <div className="image">
-            <img src="http://p4.music.126.net/9BgjaSNM9Bmkh5waahv_gQ==/109951165628223126.jpg?param=34y34" alt="星辰大海"></img>
+            <img src={getSizeImage(picUrl,35)} alt={name}></img>
+            <a href="/todo">{name}</a>
           </div>
           <div className="info">
             <div className="song">
-              <span className="name">星辰大海</span>
-              <span className="singer">黄霄云</span>
+              <span className="name">{name}</span>
+              <span className="singer">{singer}</span>
             </div>
             <div className="progress">
               <Slider defaultValue={30}/>
               <div className="time">
                 <span className="now">01:53</span>
                 <span className="divider">/</span>
-                <span className="total">03:27</span>
+                <span className="total">{formatDate(duration,"mm:ss")}</span>
               </div>
             </div>
           </div>

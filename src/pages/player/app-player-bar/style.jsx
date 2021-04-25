@@ -58,10 +58,22 @@ export const PlayInfo = styled.div`
   width: 642px;
   align-items: center;
   .image {
-    width: 34px;
-    height: 34px;
-    border-radius: 5px;
-    margin-right: 15px;
+    margin: 0 15px 0 0;
+    position: relative;
+    img {
+      width: 34px;
+      height: 34px;
+    }
+    a {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      display: block;
+      width: 34px;
+      height: 35px;
+      background: url(${imgControl}) no-repeat 0 -80px;
+      text-indent: -9999px;
+    }
   }
   .info {
     width: 608px;
