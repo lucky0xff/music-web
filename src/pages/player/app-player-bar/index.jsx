@@ -57,8 +57,12 @@ export default function HYAppPlayBar() {
 
   const sliderAfterChange = useCallback((value)=>{
     audioRef.current.currentTime = value/100*duration/1000
+    setCurrentTime(value/100*duration)
     setIsChanging(false)
-  },[duration])
+    if (!isPlaying) {
+      playMusic()
+    }
+  },[duration,isPlaying,playMusic])
 
   // render
   return (
