@@ -4,6 +4,7 @@ import { PlayerBarWrapper,Control, PlayInfo,Operator} from './style'
 import { getSongsDetailAction } from '../store/actionCreators'
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { getSizeImage,formatDate,getPlayMusic } from '@/utils/format-utils'
+import { NavLink } from 'react-router-dom';
 
 export default function HYAppPlayBar() {
   // state
@@ -77,7 +78,7 @@ export default function HYAppPlayBar() {
         <PlayInfo>
           <div className="image">
             <img src={getSizeImage(picUrl,35)} alt={name}></img>
-            <a href="/todo">{name}</a>
+            <NavLink to="/discover/player">{name}</NavLink>
           </div>
           <div className="info">
             <div className="song">

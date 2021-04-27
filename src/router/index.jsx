@@ -11,6 +11,7 @@ import HYPlaylist from '@/pages/discover/c-pages/playlist'
 import HYDjradio from '@/pages/discover/c-pages/djradio'
 import HYArtist from '@/pages/discover/c-pages/artist'
 import HYAlbum from '@/pages/discover/c-pages/album'
+import HYPlayer from '@/pages/player'
 
 export const routes = [{
     path: '/',
@@ -49,6 +50,10 @@ export const routes = [{
       {
         path: '/discover/album',
         component: HYAlbum
+      },
+      {
+        path: '/discover/player',
+        component: HYPlayer
       },
     ],
   },
