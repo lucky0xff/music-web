@@ -10,6 +10,9 @@ export const OperationBarWrapper = styled.div`
       color: #333;
     }
   }
+  i {
+    font-style:normal;
+  }
 
   .play {
     display: flex;

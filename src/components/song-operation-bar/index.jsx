@@ -25,7 +25,7 @@ export default function HYSongOperationBar(props) {
         <i className="icon download-icon sprite_button">{downloadTitle}</i>
       </a>
       <a href="/todo" className="item sprite_button">
-        <i className="icon comment-icon sprite_button">{commentTitle}</i>
+        <i className="icon comment-icon sprite_button">({commentTitle})</i>
       </a>
     </OperationBarWrapper>
   )

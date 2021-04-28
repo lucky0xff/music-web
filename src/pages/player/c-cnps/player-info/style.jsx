@@ -81,6 +81,7 @@ export const InfoRight = styled.div`
   }
 
   .lyric-control {
+    margin-top: 5px;
     border: none;
     position: relative;
     color: #0c73c2;
@@ -97,7 +98,7 @@ export const InfoRight = styled.div`
       height: 8px;
       right: -7px;
       top: 6px;
-      background: url(${imgIcon}) no-repeat  -65px -520px;
+      background: url(${imgIcon}) no-repeat ${props => props.isSpread ? "-45px": "-65px"} -520px;
     }
   }
 `
