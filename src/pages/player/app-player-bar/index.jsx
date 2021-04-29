@@ -1,23 +1,29 @@
 import React,{ useEffect,useRef,useState,useCallback} from 'react'
+import { NavLink } from 'react-router-dom';
+
+import { getSongsDetailAction,changeIsPlayingAction,changeProgressAction,changeCurrentTimeAction, changeSequenceAction } from '../store/actionCreators'
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
+
 import { Slider } from 'antd';
 import { PlayerBarWrapper,Control, PlayInfo,Operator} from './style'
-import { getSongsDetailAction } from '../store/actionCreators'
-import { useDispatch, useSelector, shallowEqual } from 'react-redux';
-import { getSizeImage,formatDate,getPlayMusic } from '@/utils/format-utils'
-import { NavLink } from 'react-router-dom';
+import { getSizeImage,formatDate,getPlayMusic} from '@/utils/format-utils'
 
 export default function HYAppPlayBar() {
   // state
   const audioRef = useRef()
-  const [currentTime, setCurrentTime] = useState(0)
-  const [progress, setProgress] = useState(0)
+  // const [currentTime, setCurrentTime] = useState(0)
+  // const [progress, setProgress] = useState(0)
   const [isChanging, setIsChanging] = useState(false)
-  const [isPlaying, setIsPlaying] = useState(false)
+  // const [isPlaying, setIsPlaying] = useState(false)
 
   // redux hooks
   const dispatch = useDispatch()
-  const { currentSong } = useSelector(state => ({
-    currentSong: state.getIn(["player","currentSong"])
+  const { currentSong,isPlaying,progress,currentTime,sequence } = useSelector(state => ({
+    currentSong: state.getIn(["player","currentSong"]),
+    isPlaying: state.getIn(["player","isPlaying"]),
+    progress: state.getIn(["player","progress"]),
+    currentTime: state.getIn(["player","currentTime"]),
+    sequence: state.getIn(["player","sequence"])
   }),shallowEqual)
 
   // other hooks
@@ -30,7 +36,8 @@ export default function HYAppPlayBar() {
   }, [currentSong])
 
   // other handle
-  const { picUrl,name } = (currentSong && currentSong.al) || ""
+  const name = (currentSong && currentSong.name) || ""
+  const { picUrl } = (currentSong && currentSong.al) || ""
   const singer = (currentSong.ar && currentSong.ar[0].name) || ""
   const duration = (currentSong && currentSong.dt) || ""
 
@@ -38,32 +45,49 @@ export default function HYAppPlayBar() {
   // 切换播放
   const playMusic = useCallback(()=>{
     isPlaying ? audioRef.current.pause():audioRef.current.play()
-    setIsPlaying(!isPlaying)
-  },[isPlaying])
+    // setIsPlaying(!isPlaying)
+    dispatch(changeIsPlayingAction(!isPlaying))
+  },[dispatch,isPlaying])
 
   // 播放位置改变时
   const timeUpdate = (e)=>{
     // console.log(e.target.currentTime) 单位：s
     if (!isChanging) {
-      setCurrentTime(e.target.currentTime*1000)
-      setProgress(currentTime/duration*100)
+      // setCurrentTime(e.target.currentTime*1000)
+      dispatch(changeCurrentTimeAction(e.target.currentTime*1000))
+      // setProgress(currentTime/duration*100)
+      dispatch(changeProgressAction(currentTime/duration*100))
     }
   }
 
   const sliderChange = useCallback((value)=>{
-    setProgress(value)
-    setCurrentTime(value/100*duration)
+    // setProgress(value)
+    dispatch(changeProgressAction(value))
+    // setCurrentTime(value/100*duration)
+    dispatch(changeCurrentTimeAction(value/100*duration))
+
     setIsChanging(true)
-  },[duration])
+  },[dispatch,duration])
 
   const sliderAfterChange = useCallback((value)=>{
     audioRef.current.currentTime = value/100*duration/1000
-    setCurrentTime(value/100*duration)
+    // setCurrentTime(value/100*duration)
+    dispatch(changeCurrentTimeAction(value/100*duration))
+
     setIsChanging(false)
     if (!isPlaying) {
       playMusic()
     }
-  },[duration,isPlaying,playMusic])
+  },[dispatch,duration,isPlaying,playMusic])
+
+  const changeSequence = ()=> {
+    let currentSequence = sequence + 1
+    console.log(currentSequence)
+    if (currentSequence > 2) {
+      currentSequence = 0
+    }
+    dispatch(changeSequenceAction(currentSequence))
+  }
 
   // render
   return (
@@ -99,14 +123,14 @@ export default function HYAppPlayBar() {
           </div>
         </PlayInfo>
 
-        <Operator>
+        <Operator sequence={sequence}>
           <div className="left">
             <button className="btn favor"></button>
             <button className="btn share"></button>
           </div>
           <div className="right">
             <button className="btn volume"></button>
-            <button className="btn loop"></button>
+            <button className="btn loop" onClick={e=>changeSequence()}></button>
             <button className="btn playlist"></button>
           </div>
         </Operator>

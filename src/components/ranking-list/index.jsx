@@ -1,11 +1,31 @@
-import React from 'react'
+import React, { useRef }from 'react'
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
+import { getSongsDetailAction,changeIsPlayingAction,changeProgressAction,changeCurrentTimeAction } from '@/pages/player/store/actionCreators'
+
 import { RankingListWrapper } from './style'
 
 import { getSizeImage } from '@/utils/format-utils'
 
 export default function HYRankingList(props) {
+  // state and props
   const { info } = props
   const { tracks=[] } = info
+
+  // redux hooks
+  const dispatch = useDispatch()
+
+  // other hooks
+
+  // other handle
+  const playMusic = (item)=> {
+    dispatch(getSongsDetailAction(item.id))
+    dispatch(changeIsPlayingAction(true))
+    dispatch(changeProgressAction(0))
+    dispatch(changeCurrentTimeAction(0))
+    // audioRef.current.play()
+  }
+
+  // render
   return (
     <RankingListWrapper>
       <div className="header">
@@ -30,7 +50,7 @@ export default function HYRankingList(props) {
                 <div className="info">
                   <a href="/todo">{item.name}</a>
                   <div className="operate">
-                    <button className="btn play" ></button>
+                    <button className="btn play" onClick={e=>playMusic(item)}></button>
                     <button className="btn addto"></button>
                     <button className="btn favor"></button>
                   </div>
