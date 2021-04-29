@@ -1,7 +1,7 @@
 import React,{ useEffect,useRef,useState,useCallback} from 'react'
 import { NavLink } from 'react-router-dom';
 
-import { getSongsDetailAction,changeIsPlayingAction,changeProgressAction,changeCurrentTimeAction, changeSequenceAction } from '../store/actionCreators'
+import { getSongsDetailAction,changeIsPlayingAction,changeProgressAction,changeCurrentTimeAction, changeSequenceAction, changeCurrentSong } from '../store/actionCreators'
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 
 import { Slider } from 'antd';
@@ -30,10 +30,17 @@ export default function HYAppPlayBar() {
   useEffect(() => {
     dispatch(getSongsDetailAction(1327277362))
   }, [dispatch])
+
   // 不是每次点击按钮都要设置src 所以放在useEffect里比较合适
   useEffect(() => {
     audioRef.current.src = getPlayMusic(currentSong.id)
-  }, [currentSong])
+    // 当歌曲发生变化时也执行这里 所以play()放这里！
+    audioRef.current.play().then(response => {
+      dispatch(changeIsPlayingAction(true))
+    }).catch(err=>{
+      dispatch(changeIsPlayingAction(false))
+    })
+  }, [dispatch,currentSong])
 
   // other handle
   const name = (currentSong && currentSong.name) || ""
@@ -45,25 +52,33 @@ export default function HYAppPlayBar() {
   // 切换播放
   const playMusic = useCallback(()=>{
     isPlaying ? audioRef.current.pause():audioRef.current.play()
-    // setIsPlaying(!isPlaying)
     dispatch(changeIsPlayingAction(!isPlaying))
   },[dispatch,isPlaying])
+  // 上下首歌
+  const changeMusic = (index)=> {
+    dispatch(changeCurrentSong(index))
+  }
 
   // 播放位置改变时
   const timeUpdate = (e)=>{
     // console.log(e.target.currentTime) 单位：s
     if (!isChanging) {
-      // setCurrentTime(e.target.currentTime*1000)
       dispatch(changeCurrentTimeAction(e.target.currentTime*1000))
-      // setProgress(currentTime/duration*100)
       dispatch(changeProgressAction(currentTime/duration*100))
+    }
+  }
+  // 播放完一首歌
+  const musicEnded = (e) => {
+    if (sequence === 2) { // 单曲
+      audioRef.current.currentTime = 0
+      audioRef.current.play()
+    } else {
+      dispatch(changeCurrentSong(1))  // 类似于点击了下一首
     }
   }
 
   const sliderChange = useCallback((value)=>{
-    // setProgress(value)
     dispatch(changeProgressAction(value))
-    // setCurrentTime(value/100*duration)
     dispatch(changeCurrentTimeAction(value/100*duration))
 
     setIsChanging(true)
@@ -71,7 +86,6 @@ export default function HYAppPlayBar() {
 
   const sliderAfterChange = useCallback((value)=>{
     audioRef.current.currentTime = value/100*duration/1000
-    // setCurrentTime(value/100*duration)
     dispatch(changeCurrentTimeAction(value/100*duration))
 
     setIsChanging(false)
@@ -94,9 +108,9 @@ export default function HYAppPlayBar() {
     <PlayerBarWrapper>
       <div className="content">
         <Control isPlaying={isPlaying}>
-          <button className="btn prev"></button>
-          <button className="btn play" onClick={()=>playMusic()}></button>
-          <button className="btn next"></button>
+          <button className="btn prev" onClick={e=>changeMusic(-1)}></button>
+          <button className="btn play" onClick={e=>playMusic()}></button>
+          <button className="btn next" onClick={e=>changeMusic(1)}></button>
         </Control>
 
         <PlayInfo>
@@ -137,7 +151,9 @@ export default function HYAppPlayBar() {
 
         {/* 播放器 */}
         <audio ref={audioRef} 
-               onTimeUpdate={timeUpdate}/>
+               onTimeUpdate={e=>timeUpdate(e)}
+               onEnded={e=>musicEnded(e)}
+               />
 
       </div>
     </PlayerBarWrapper>

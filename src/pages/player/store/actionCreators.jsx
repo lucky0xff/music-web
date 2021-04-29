@@ -3,7 +3,7 @@ import { parseLyric } from '@/utils/lyric-utils'
 
 import * as actionTypes from './constants'
 
-const changeSongsDetailAction = (response) => ({
+const changeSongsDetailAction = (response) => ({ // 也可以叫 changeCurrentSongAction 懒得改了
   type: actionTypes.CHANGE_SONGS_DETAIL,
   currentSong: response
 })
@@ -83,8 +83,39 @@ export const getSongsDetailAction = (ids) => {
         dispatch(changeSongsDetailAction(song))
       })
     }
+  }
+}
+
+// 上下首歌 index 1下一首 -1上一首
+export const changeCurrentSong = (index) => {
+  return (dispatch,getState) => {
+    let currentSongIndex = getState().getIn(["player","currentSongIndex"])
+    const playlist = getState().getIn(["player","playlist"])
+    const sequence = getState().getIn(["player","sequence"])
+
+    switch (sequence) {
+      case 1: // 随机
+        let randomIndex = Math.floor(Math.random()*playlist.length)
+        while (randomIndex === currentSongIndex) {
+          randomIndex = Math.floor(Math.random()*playlist.length)
+        }
+        currentSongIndex = randomIndex
+        break;
+      default:  // 顺序 单曲 因为是点击按钮的所以尽管是单曲也是会放下一首
+        currentSongIndex += index
+        if (currentSongIndex >= playlist.length) { // 最后一首
+          currentSongIndex = 0
+        } else if (currentSongIndex < 0) {  // 第一首
+          currentSongIndex = playlist.length-1
+        }
+        break;
+    }
+    const currentSong = playlist[currentSongIndex]
+    dispatch(changeCurrentSongIndexAction(currentSongIndex))
+    dispatch(changeSongsDetailAction(currentSong))
 
   }
+  
 }
 
 export const getSongLyricAction = (id) => {

@@ -1,5 +1,5 @@
-import React, { useRef }from 'react'
-import { useDispatch, useSelector, shallowEqual } from 'react-redux';
+import React from 'react'
+import { useDispatch } from 'react-redux';
 import { getSongsDetailAction,changeIsPlayingAction,changeProgressAction,changeCurrentTimeAction } from '@/pages/player/store/actionCreators'
 
 import { RankingListWrapper } from './style'
