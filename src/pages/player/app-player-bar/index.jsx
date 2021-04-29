@@ -1,7 +1,15 @@
 import React,{ useEffect,useRef,useState,useCallback} from 'react'
 import { NavLink } from 'react-router-dom';
 
-import { getSongsDetailAction,changeIsPlayingAction,changeProgressAction,changeCurrentTimeAction, changeSequenceAction, changeCurrentSong } from '../store/actionCreators'
+import { message } from 'antd';
+
+import { getSongsDetailAction,
+         changeIsPlayingAction,
+         changeProgressAction,
+         changeCurrentTimeAction, 
+         changeSequenceAction, 
+         changeCurrentSong,
+         changeCurrentLyricIndexAction } from '../store/actionCreators'
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 
 import { Slider } from 'antd';
@@ -18,12 +26,23 @@ export default function HYAppPlayBar() {
 
   // redux hooks
   const dispatch = useDispatch()
-  const { currentSong,isPlaying,progress,currentTime,sequence } = useSelector(state => ({
+  const { currentSong,
+          isPlaying,
+          progress,
+          currentTime,
+          sequence,
+          currentLyric,
+          currentLyricIndex,
+          playlist,
+        } = useSelector(state => ({
     currentSong: state.getIn(["player","currentSong"]),
     isPlaying: state.getIn(["player","isPlaying"]),
     progress: state.getIn(["player","progress"]),
     currentTime: state.getIn(["player","currentTime"]),
-    sequence: state.getIn(["player","sequence"])
+    sequence: state.getIn(["player","sequence"]),
+    currentLyric: state.getIn(["player","currentLyric"]),
+    currentLyricIndex: state.getIn(["player","currentLyricIndex"]),
+    playlist: state.getIn(["player","playlist"]),
   }),shallowEqual)
 
   // other hooks
@@ -66,7 +85,27 @@ export default function HYAppPlayBar() {
       dispatch(changeCurrentTimeAction(e.target.currentTime*1000))
       dispatch(changeProgressAction(currentTime/duration*100))
     }
+
+    let i = 0;
+    for (; i < currentLyric.length; i++) {
+      const LyricItem = currentLyric[i];
+      if (e.target.currentTime*1000 < LyricItem.time) {
+        break
+      }
+    }
+    // 一点优化 不至于频繁操作redux
+    if (currentLyricIndex !== i-1) {
+      console.log(currentLyric[i-1])
+      dispatch(changeCurrentLyricIndexAction(i-1))
+      message.open({
+        content: (currentLyric[i-1] && currentLyric[i-1].content) || currentSong.name+"    -    "+currentSong.ar[0].name,
+        key: "lyric",
+        duration: 0,
+        className: 'lyric-message',
+      })
+    }
   }
+
   // 播放完一首歌
   const musicEnded = (e) => {
     if (sequence === 2) { // 单曲
@@ -145,7 +184,9 @@ export default function HYAppPlayBar() {
           <div className="right">
             <button className="btn volume"></button>
             <button className="btn loop" onClick={e=>changeSequence()}></button>
-            <button className="btn playlist"></button>
+            <button className="btn playlist">
+              {playlist.length}
+            </button>
           </div>
         </Operator>
 

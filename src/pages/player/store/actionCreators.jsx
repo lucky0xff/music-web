@@ -23,6 +23,11 @@ const changeSongsLyricAction = (response) => ({
   currentLyric:response
 })
 
+export const changeCurrentLyricIndexAction = (response) => ({
+  type: actionTypes.CHANGE_CURRENT_LYRIC_INDEX,
+  currentLyricIndex: response
+})
+
 const changeSongsCommentsAction = (response) => ({
   type: actionTypes.CHANGE_SONG_COMMENTS,
   currentComments:response
@@ -57,6 +62,7 @@ export const changeCurrentTimeAction = (response) => ({
   type: actionTypes.CHANGE_CURRENT_TIME,
   currentTime: response
 })
+
 
 // 重点
 export const getSongsDetailAction = (ids) => {
@@ -116,6 +122,7 @@ export const changeCurrentSong = (index) => {
     const currentSong = playlist[currentSongIndex]
     dispatch(changeCurrentSongIndexAction(currentSongIndex))
     dispatch(changeSongsDetailAction(currentSong))
+    dispatch(getSongLyricAction(currentSong.id))
   }
 }
 

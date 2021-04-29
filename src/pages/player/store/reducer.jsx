@@ -232,6 +232,7 @@ const defaultState = Map({
   currentSongIndex:0,
 
   currentLyric:[],
+  currentLyricIndex:0,
   currentComments:[],
   currentSimiPlayLists:[],
   currentSimiSongs:[],
@@ -266,6 +267,8 @@ function reducer (preState = defaultState,action) {
       return preState.set("currentTime",action.currentTime)
     case actionTypes.CHANGE_SEQUENCE:
       return preState.set("sequence",action.sequence)
+    case actionTypes.CHANGE_CURRENT_LYRIC_INDEX:
+      return preState.set("currentLyricIndex",action.currentLyricIndex)
     default:
       return preState
   }

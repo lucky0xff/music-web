@@ -147,6 +147,8 @@ export const Operator = styled.div`
   }
   .right {
     margin-left:16px;
+    display: flex;
+    align-items: center;
     .volume {
       background-position: -2px -248px;
     }
@@ -163,9 +165,11 @@ export const Operator = styled.div`
       }}
     }
     .playlist {
-      background-position: -42px -68px;
+      padding-left: 18px;
+      text-align: center;
+      color: #666;
       width: 59px;
-      height: 25px;
+      background-position: -42px -68px;
     }
   }
 
