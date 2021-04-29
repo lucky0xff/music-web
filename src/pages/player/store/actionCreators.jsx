@@ -83,6 +83,9 @@ export const getSongsDetailAction = (ids) => {
         dispatch(changeSongsDetailAction(song))
       })
     }
+
+    // 3. 获取歌词
+    dispatch(getSongLyricAction(ids))
   }
 }
 
@@ -113,9 +116,7 @@ export const changeCurrentSong = (index) => {
     const currentSong = playlist[currentSongIndex]
     dispatch(changeCurrentSongIndexAction(currentSongIndex))
     dispatch(changeSongsDetailAction(currentSong))
-
   }
-  
 }
 
 export const getSongLyricAction = (id) => {

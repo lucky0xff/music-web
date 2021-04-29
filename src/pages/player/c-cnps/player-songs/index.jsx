@@ -12,12 +12,13 @@ export default function HYPlayerSongs() {
   const dispatch = useDispatch()
 
   // other hooks
-  const { currentSimiPlayLists } = useSelector(state => ({
+  const { currentSimiPlayLists,currentSong } = useSelector(state => ({
+    currentSong: state.getIn(["player","currentSong"]),
     currentSimiPlayLists: state.getIn(["player","currentSimiPlayLists"]),
   }),shallowEqual)
   useEffect(() => {
-    dispatch(getSimiPlayListsAction(1327277362))
-  }, [dispatch])
+    dispatch(getSimiPlayListsAction(currentSong.id))
+  }, [dispatch,currentSong])
 
   //  render
   return (

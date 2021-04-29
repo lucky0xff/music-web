@@ -11,16 +11,21 @@ export const PlayerReleventWrapper = styled.div`
       margin-bottom: 12px;
 
       .info {
+        max-width: 156px;
         a {
           font-size: 12px;
         }
         .title{
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
           a {
             color: #333;
           }
         }
 
         .artist {
+          
           a {
             color: #999;
           }

@@ -9,13 +9,15 @@ export default function HYPlayerRelevent() {
   // props and state
   // redux hools
   const dispatch = useDispatch()
-  const { currentSimiSongs } = useSelector(state=>({
+  const { currentSimiSongs,currentSong } = useSelector(state=>({
+    currentSong: state.getIn(["player","currentSong"]),
     currentSimiSongs: state.getIn(["player","currentSimiSongs"])
   }),shallowEqual)
   // other hooks
   useEffect(() => {
-    dispatch(getSimiSongsAction(1327277362))
-  }, [dispatch])
+    dispatch(getSimiSongsAction(currentSong.id))
+  }, [currentSong,dispatch])
+  
   return (
     <PlayerReleventWrapper>
       <HYThemeHeaderPlayer title="相似歌曲" />

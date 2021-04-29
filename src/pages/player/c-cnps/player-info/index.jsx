@@ -24,9 +24,9 @@ export default function HYPlayerInfo() {
 
   // other hooks
   useEffect(() => {
-    dispatch(getSongLyricAction(1327277362))
-    dispatch(getSongCommentsAction(1327277362))
-  }, [dispatch])
+    dispatch(getSongLyricAction(currentSong.id))
+    dispatch(getSongCommentsAction(currentSong.id))
+  }, [dispatch,currentSong])
 
   // other handle
   const totalLyricCount = isSpread ? currentLyric.length : 12
